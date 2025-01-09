@@ -1,4 +1,3 @@
-/// <reference types="jest" />
 import { describe, test, expect, beforeEach } from 'vitest';
 import { Eliza } from './index';
 import { Response } from './types';

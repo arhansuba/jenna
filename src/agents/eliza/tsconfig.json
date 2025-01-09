@@ -1,21 +1,23 @@
 {
-    "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "outDir": "dist",
-        "rootDir": ".",
+        "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Bundler",
+        "esModuleInterop": true,
+        "strict": true,
+        "skipLibCheck": true,
+        "outDir": "dist",
+        "rootDir": ".",
         "types": [
             "node",
-            "jest"
+            "vitest/globals"
         ]
     },
-    "ts-node": {
-        "experimentalSpecifierResolution": "node",
-        "transpileOnly": true,
-        "esm": true
-    },
     "include": [
-        "src"
+        "*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
     ]
 }

@@ -2,12 +2,6 @@ import { createInterface } from 'readline';
 import * as process from 'node:process';
 import { Agent, AgentConfig, Memory, Response, Pattern } from './types';
 
-interface Pattern {
-    regex: RegExp;
-    responses: string[];
-    confidence: number;
-}
-
 export class Eliza implements Agent {
     private patterns: Pattern[];
     public config: AgentConfig;

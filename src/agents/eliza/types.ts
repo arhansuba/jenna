@@ -1,3 +1,9 @@
+export interface Pattern {
+    regex: RegExp;
+    responses: string[];
+    confidence: number;
+}
+
 export interface AgentConfig {
     name: string;
     description: string;
