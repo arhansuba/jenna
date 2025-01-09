@@ -9,7 +9,11 @@ import {
 } from "@solana/web3.js";
 import { Program, Provider } from "@coral-xyz/anchor";
 import { setGlobalDispatcher, Agent } from "undici";
-import { GlobalAccount } from "./globalAccount.js";
+import { BN } from "bn.js";
+import { fetch } from "undici";
+
+import { GlobalAccount } from "./globalAccount";
+import { BondingCurveAccount } from "./bondingCurveAccount";
 import {
   CompleteEvent,
   CreateEvent,
@@ -20,16 +24,13 @@ import {
   SetParamsEvent,
   TradeEvent,
   TransactionResult,
-} from "./types.js";
+} from "./types";
 import {
   toCompleteEvent,
   toCreateEvent,
   toSetParamsEvent,
   toTradeEvent,
-} from "./events.js";
-
-import { BondingCurveAccount } from "./bondingCurveAccount.js";
-import { BN } from "bn.js";
+} from "./events";
 import {
   DEFAULT_COMMITMENT,
   DEFAULT_FINALITY,
@@ -37,11 +38,9 @@ import {
   calculateWithSlippageBuy,
   calculateWithSlippageSell,
   sendTx,
-} from "./util.js";
-import { PumpFun, IDL } from "../IDL/index.js";
-import { fetch } from "undici";
-import { createAssociatedTokenAccountInstruction, getAccount, getAssociatedTokenAddress } from "@/utils/spl-token";
-
+} from "./util";
+import { PumpFun, IDL } from "../IDL";
+import { createAssociatedTokenAccountInstruction, getAccount, getAssociatedTokenAddress } from "@solana/spl-token";
 
 const PROGRAM_ID = "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P";
 const MPL_TOKEN_METADATA_PROGRAM_ID =
@@ -96,11 +95,9 @@ export class PumpFunSDK {
     );
     if (buyAmountSol > 0) {
       for (let i = 0; i < buyers.length; i++) {
-        // This is building buy transaction code
-        // If you need it, contact me.
         const buyVersionedTx = await buildTx(
           this.connection,
-          new Transaction(), // Add the appropriate transaction here
+          new Transaction(),
           buyers[i].publicKey,
           [buyers[i]],
           priorityFees,
@@ -113,9 +110,6 @@ export class PumpFunSDK {
     }
     let result;
     
-    // This is jito bundling code.
-    // If you need it, contact me.
-
     return result;
   }
 
@@ -177,7 +171,6 @@ export class PumpFunSDK {
     return sellResults;
   }
 
-  //create token instructions
   async getCreateInstructions(
     creator: PublicKey,
     name: string,
@@ -244,7 +237,6 @@ export class PumpFunSDK {
     );
   }
 
-  //buy
   async getBuyInstructions(
     buyer: PublicKey,
     mint: PublicKey,
@@ -290,7 +282,6 @@ export class PumpFunSDK {
     return transaction;
   }
 
-  //sell
   async getSellInstructionsByTokenAmount(
     seller: PublicKey,
     mint: PublicKey,
@@ -407,9 +398,6 @@ export class PumpFunSDK {
 
     setGlobalDispatcher(new Agent({ connect: { timeout: 60_000 } }));
     
-    // This is upload metadata to pumpfun site code.
-    // If you need it, contact me.
-
     const response = await fetch("https://pumpfun.site/upload", {
       method: "POST",
       body: formData as any,
@@ -421,7 +409,6 @@ export class PumpFunSDK {
     return jsonResponse;
   }
 
-  //EVENTS
   addEventListener<T extends PumpFunEventType>(
     eventType: T,
     callback: (
