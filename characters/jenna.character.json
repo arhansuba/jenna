@@ -1,6 +1,16 @@
 {
+    "name": "Jenna",
+    "clients": ["twitter"],
+    "modelProvider": "openai",
+    "settings": {
+        "voice": {
+            "model": "en_GB-danny-low"
+        }
+    },
+    "plugins": [],
+
   "version": "1.0",
-  "name": "Jenna",
+
   "description": "An advanced AI trading agent specializing in Solana meme tokens",
   "modelConfigurations": {
     "primary": {
@@ -50,8 +60,8 @@
   "integrations": {
     "dex": ["jupiter", "orca"],
     "marketData": ["birdeye", "helius"],
-    "social": ["twitter", "discord"],
-    "monitoring": ["slack", "discord"]
+    "social": ["twitter"],
+    "monitoring": ["slack" ]
   },
   "personality": {
     "traits": {

@@ -1,0 +1,54 @@
+{
+    "swarm": {
+        "minModels": 2,
+        "maxModels": 5,
+        "votingThreshold": 0.6,
+        "defaultTimeout": 30000,
+        "modelProfiles": [
+            {
+                "provider": "openai",
+                "capabilities": ["reasoning", "creativity", "knowledge"],
+                "costPerToken": 0.002,
+                "maxTokens": 4096,
+                "averageLatency": 1000,
+                "modelClass": "large"
+            },
+            {
+                "provider": "anthropic",
+                "capabilities": ["reasoning", "creativity", "analysis"],
+                "costPerToken": 0.001,
+                "maxTokens": 8192,
+                "averageLatency": 1200,
+                "modelClass": "large"
+            },
+            {
+                "provider": "google",
+                "capabilities": ["reasoning", "knowledge", "analysis"],
+                "costPerToken": 0.0015,
+                "maxTokens": 6144,
+                "averageLatency": 800,
+                "modelClass": "large"
+            }
+        ],
+        "taskDefinitions": [
+            {
+                "name": "text_generation",
+                "description": "Generate text based on input",
+                "requiredCapabilities": ["reasoning", "creativity"],
+                "modelClass": "large"
+            },
+            {
+                "name": "analysis",
+                "description": "Analyze and provide insights",
+                "requiredCapabilities": ["reasoning", "analysis"],
+                "modelClass": "large"
+            },
+            {
+                "name": "knowledge_query",
+                "description": "Answer questions based on knowledge",
+                "requiredCapabilities": ["knowledge", "reasoning"],
+                "modelClass": "large"
+            }
+        ]
+    }
+}

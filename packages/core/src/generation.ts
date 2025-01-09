@@ -795,6 +795,19 @@ export async function generateText({
                 break;
             }
 
+            case ModelProviderName.DEEPSEEK: {
+                return await handleDeepSeek({
+                    model,
+                    apiKey,
+                    schema,
+                    schemaName,
+                    schemaDescription,
+                    mode,
+                    modelOptions,
+                    provider,
+                });
+            }
+
             default: {
                 const errorMessage = `Unsupported provider: ${provider}`;
                 elizaLogger.error(errorMessage);
@@ -1664,6 +1677,8 @@ export async function handleProvider(
             return await handleOpenRouter(options);
         case ModelProviderName.OLLAMA:
             return await handleOllama(options);
+        case ModelProviderName.DEEPSEEK:
+            return await handleDeepSeek(options);
         default: {
             const errorMessage = `Unsupported provider: ${provider}`;
             elizaLogger.error(errorMessage);
@@ -1878,6 +1893,36 @@ async function handleOllama({
     const ollama = ollamaProvider(model);
     return await aiGenerateObject({
         model: ollama,
+        schema,
+        schemaName,
+        schemaDescription,
+        mode,
+        ...modelOptions,
+    });
+}
+
+/**
+ * Handles object generation for DeepSeek models.
+ *
+ * @param {ProviderOptions} options - Options specific to DeepSeek.
+ * @returns {Promise<GenerateObjectResult<unknown>>} - A promise that resolves to generated objects.
+ */
+async function handleDeepSeek({
+    model,
+    apiKey,
+    schema,
+    schemaName,
+    schemaDescription,
+    mode,
+    modelOptions,
+}: ProviderOptions): Promise<GenerateObjectResult<unknown>> {
+    const deepseek = createOpenAI({
+        apiKey,
+        baseURL: models.deepseek.endpoint,
+        fetch: runtime.fetch,
+    });
+    return await aiGenerateObject({
+        model: deepseek.languageModel(model),
         schema,
         schemaName,
         schemaDescription,

@@ -213,6 +213,7 @@ export type Models = {
     [ModelProviderName.VENICE]: Model;
     [ModelProviderName.AKASH_CHAT_API]: Model;
     [ModelProviderName.LIVEPEER]: Model;
+    [ModelProviderName.DEEPSEEK]: Model;
 };
 
 /**
@@ -243,6 +244,7 @@ export enum ModelProviderName {
     VENICE = "venice",
     AKASH_CHAT_API = "akash_chat_api",
     LIVEPEER = "livepeer",
+    DEEPSEEK = "deepseek",
 }
 
 /**
@@ -1294,6 +1296,7 @@ export enum ServiceType {
     AWS_S3 = "aws_s3",
     BUTTPLUG = "buttplug",
     SLACK = "slack",
+    SWARM = "swarm",
 }
 
 export enum LoggingLevel {
@@ -1328,3 +1331,48 @@ export enum TranscriptionProvider {
     Deepgram = "deepgram",
     Local = "local",
 }
+
+export interface ISwarmService extends Service {
+    executeSwarmTask(task: SwarmTask): Promise<SwarmResult>;
+    addModelProfile(profile: ModelProfile): void;
+    addTaskDefinition(definition: TaskDefinition): void;
+    updateConfig(config: SwarmConfig): void;
+}
+
+export type SwarmConfig = {
+    minModels: number;
+    maxModels: number;
+    votingThreshold: number;
+    defaultTimeout: number;
+};
+
+export type ModelProfile = {
+    provider: ModelProviderName;
+    capabilities: string[];
+    costPerToken: number;
+    maxTokens: number;
+    averageLatency: number;
+    modelClass: ModelClass;
+};
+
+export type TaskDefinition = {
+    name: string;
+    description: string;
+    requiredCapabilities: string[];
+    modelClass: ModelClass;
+};
+
+export type SwarmTask = {
+    name: string;
+    input: string;
+    config?: Partial<SwarmConfig>;
+};
+
+export type SwarmResult = {
+    result: string;
+    confidence: number;
+    agreement: number;
+    modelDistribution: Record<ModelProviderName, number>;
+    reliability: number;
+    executionTime: number;
+};

@@ -1,29 +1,47 @@
 {
-  "root": true,
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+  "plugins": [
+    "@stylistic"
   ],
-  "env": {
-    "node": true,
-    "es2020": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module"
-  },
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@stylistic/recommended-extends"
+  ],
   "rules": {
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": ["error", {
-      "argsIgnorePattern": "^_",
-      "varsIgnorePattern": "^_"
-    }],
-    "no-console": ["warn", {
-      "allow": ["warn", "error", "info"]
-    }]
-  },
-  "ignorePatterns": ["dist/", "node_modules/", "coverage/"]
-} 
+    "@stylistic/indent": [
+      "error",
+      4,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "@stylistic/no-tabs": "error",
+    "@stylistic/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "semi",
+          "requireLast": true
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        }
+      }
+    ],
+    "@stylistic/eol-last": [
+      "error",
+      "always"
+    ],
+    "@stylistic/multiline-ternary": "off",
+    "@stylistic/semi": [
+      "error",
+      "always"
+    ],
+    "@stylistic/quotes": "off",
+    "@stylistic/comma-dangle": "off",
+    "@stylistic/brace-style": [
+      "error",
+      "1tbs"
+    ]
+  }
+}

@@ -12,9 +12,9 @@ import { boredomProvider } from "./providers/boredom.ts";
 import { factsProvider } from "./providers/facts.ts";
 import { timeProvider } from "./providers/time.ts";
 
-export * as actions from "./actions";
-export * as evaluators from "./evaluators";
-export * as providers from "./providers";
+export * as actions from "./actions/index.ts";
+export * as evaluators from "./evaluators/index.ts";
+export * as providers from "./providers/index.ts";
 
 export const bootstrapPlugin: Plugin = {
     name: "bootstrap",
