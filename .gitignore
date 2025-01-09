@@ -1,57 +1,50 @@
-node_modules
-/out
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
 
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Environment variables
 .env
-.env.production
 .env.local
-.env_main
-concatenated-output.ts
-embedding-cache.json
-packages/plugin-buttplug/intiface-engine
+.env.*.local
 
-.idea
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
 .DS_Store
 
-dist/
-# Allow models directory but ignore model files
-models/*.gguf
+# Testing
+coverage/
+.nyc_output/
 
-cookies.json
-
-db.sqlite
-searches/
-tweets/
-
-*.gguf
-*.onnx
-*.wav
-*.mp3
-
-logs/
-
-test-report.json
-content_cache/
-test_data/
-tokencache/
-tweetcache/
-twitter_cookies.json
-timeline_cache.json
-
+# Database
 *.sqlite
+*.sqlite3
+*.db
 
-characters/
-
-packages/core/src/providers/cache
-packages/core/src/providers/cache/*
-cache/*
-packages/plugin-coinbase/src/plugins/transactions.csv
-
-tsup.config.bundled_*.mjs
-
-.turbo
-.cursorrules
-
-coverage
+# Cache
+.cache/
+.npm/
 .eslintcache
 
-agent/content
+# Temporary files
+tmp/
+temp/
+
+# System files
+Thumbs.db
+.DS_Store
